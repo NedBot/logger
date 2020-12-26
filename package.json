@@ -1,0 +1,17 @@
+{
+  "name": "nedbot-logger",
+  "version": "1.0.0",
+  "description": "NedBot project logs initialisation.",
+  "main": "dist/index.js",
+  "repository": "https://github.com/NedBot/logger",
+  "author": "NedBot <contact@nedbot.org>",
+  "license": "Apache-2.0",
+  "private": false,
+  "dependencies": {
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.16",
+    "typescript": "^4.1.3"
+  }
+}

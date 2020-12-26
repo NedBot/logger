@@ -1,0 +1,10 @@
+# Node modules
+node_modules/
+
+# Build
+dist/
+src/tests/
+
+# Yarn
+yarn-error.log
+yarn.lock
