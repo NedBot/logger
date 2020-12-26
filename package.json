@@ -1,5 +1,5 @@
 {
-  "name": "nedbot-logger",
+  "name": "@nedbot/logger",
   "version": "1.0.0",
   "description": "NedBot project logs initialisation.",
   "main": "dist/index.js",
