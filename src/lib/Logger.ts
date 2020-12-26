@@ -34,6 +34,28 @@ export class Logger {
         });
     }
 
+    public info(source: string, message: string, ...meta: any[]) {
+        this.#logger.info(message, { source, meta });
+    }
+
+    public error(source: string, error: Error | string, ...meta: any[]) {
+        const stack = error instanceof Error ? error.stack || error.message : error;
+        const message = error instanceof Error ? error.message : error;
+        this.#logger.error(message, { source, stack, meta });
+    }
+
+    public warn(source: string, message: string, ...meta: any[]) {
+        this.#logger.warn(message, { source, meta });
+    }
+
+    public verbose(source: string, message: string, ...meta: any[]) {
+        this.#logger.verbose(message, { source, meta });
+    }
+
+    public debug(source: string, message: string, ...meta: any[]) {
+        this.#logger.debug(message, { source, meta });
+    }
+
     private get transports() {
         const { timestampFormat, logFileDirectory,
             infoLogFileName, errorLogFileName,
@@ -68,7 +90,6 @@ export class Logger {
         return timestamp({ format: this.timestamp });
     }
 }
-
 
 export interface LoggerOptions {
     timestamp: string;
