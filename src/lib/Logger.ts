@@ -28,6 +28,10 @@ export class Logger {
         this.enableInfoLogs = options.enableInfoLogs ?? true;
         this.enableErrorLogs = options.enableErrorLogs ?? true;
 
+        if (!this.enableConsoleLogs && !this.enableInfoLogs && !this.enableErrorLogs) {
+            throw new TypeError("Please enable at least 1 transport");
+        }
+
         this.#logger = createLogger({
             transports: this.transports,
             levels
