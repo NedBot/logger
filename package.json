@@ -7,6 +7,12 @@
   "author": "NedBot <contact@nedbot.org>",
   "license": "Apache-2.0",
   "private": false,
+  "scripts": {
+    "build": "rm ./dist && tsc"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "winston": "^3.3.3"
   },
