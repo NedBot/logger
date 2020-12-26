@@ -1,7 +1,7 @@
-import { transports, transport, format, Logger as Winston, createLogger } from "winston";
+import { transports, transport, format, Logger as Winston, createLogger, addColors } from "winston";
 import { join } from "path";
 import { defaultTimestamp, defaultInfoFileName, defaultErrorFileName,
-    consoleFormat, levels } from "./Constants";
+    consoleFormat, levels, colors } from "./Constants";
 
 const { Console, File } = transports;
 const { combine, timestamp, json } = format;
@@ -18,6 +18,8 @@ export class Logger {
     #logger: Winston;
 
     public constructor(logFileDirectory: string, options: Partial<LoggerOptions>) {
+        addColors(colors);
+
         this.logFileDirectory = logFileDirectory;
         this.timestamp = options.timestamp ?? defaultTimestamp;
         this.infoLogFileName = options.infoLogFileName ?? defaultInfoFileName;
