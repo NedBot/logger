@@ -8,3 +8,8 @@ src/tests/
 # Yarn
 yarn-error.log
 yarn.lock
+
+# Tools
+.idea/
+.vscode/
+.git/
