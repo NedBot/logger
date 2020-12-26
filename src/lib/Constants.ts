@@ -1,9 +1,11 @@
 import { format } from "winston";
+import { dirname, join } from "path";
 const { printf, colorize } = format;
 
 export const defaultTimestamp = "DD/MM/YYYY|HH:mm:ss";
 export const defaultInfoFileName = "info.log";
 export const defaultErrorFileName = "error.log";
+export const defaultLogDirectory = join(dirname(require.main?.filename ?? ""), "logs");
 
 export const levels = {
     error: 0,
