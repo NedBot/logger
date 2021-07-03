@@ -1,5 +1,4 @@
 import type { LoggerOptions } from "../index";
-import { join } from "path";
 
 export enum LogLevelSeverity {
   ERROR,
@@ -81,7 +80,7 @@ type DefaultOptions = Pick<
 >;
 
 export const Defaults: DefaultOptions = {
-  logFilesDirectory: join(process.cwd(), "logs"),
+  logFilesDirectory: "logs",
   mainLogFileName: "info",
   errorLogFileName: "error",
   timestampFormat: "DD/MM/YYYY @ HH:mm:ss",

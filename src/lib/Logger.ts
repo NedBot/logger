@@ -83,7 +83,9 @@ export class Logger {
    * @param options The logger options.
    */
   public constructor(options: Partial<LoggerOptions>) {
-    this.logFilesDirectory = options.logFilesDirectory ?? Defaults.logFilesDirectory;
+    const logFilesDirectory = options.logFilesDirectory ?? Defaults.logFilesDirectory;
+    this.logFilesDirectory = join(process.cwd(), logFilesDirectory);
+
     this.mainLogFileName = options.mainLogFileName ?? Defaults.mainLogFileName;
     this.errorLogFileName = options.errorLogFileName ?? Defaults.errorLogFileName;
     this.timestampFormat = options.timestampFormat ?? Defaults.timestampFormat;
