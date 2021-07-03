@@ -1,4 +1,5 @@
 import Winston, { format, transport, transports } from "winston";
+import "winston-daily-rotate-file";
 import { LogLevels, LogLevel, LoggerColor, Defaults } from "../util/Constants";
 import { inspect } from "util";
 import { join } from "path";
@@ -42,6 +43,33 @@ export class Logger {
   public timestampFormat: string;
 
   /**
+   * The date format for the log files.
+   */
+  public fileDateFormat: string;
+
+  /**
+   * Whether or not to gzip archived log files.
+   */
+  public zippedArchive: boolean;
+
+  /**
+   * The maximum file size which triggers a file rotate.
+   * Use the format "SizeUnit":
+   * Size is a number, Unit is either k (for kb), m (for mb), g (for gb)
+   * @example 1k
+   * @example 1m
+   * @example 1g
+   */
+  public maxSize: string;
+
+  /**
+   * The maximum count of files which triggers a file rotate.
+   * Use a number for file count,
+   * or a number suffixed by "d" for the amount of days to keep
+   */
+  public maxFiles: string;
+
+  /**
    * The source name.
    */
   public source?: string;
@@ -62,6 +90,10 @@ export class Logger {
     this.enableConsoleLogs = options.enableConsoleLogs ?? true;
     this.enableMainLogFile = options.enableMainLogFile ?? false;
     this.enableErrorLogFile = options.enableErrorLogFile ?? false;
+    this.fileDateFormat = options.fileDateFormat ?? Defaults.fileDateFormat;
+    this.zippedArchive = options.zippedArchive ?? true;
+    this.maxSize = options.maxSize ?? Defaults.maxSize;
+    this.maxFiles = options.maxFiles?.toString() ?? Defaults.maxFiles.toString();
     this.source = options.source;
 
     if (!this.enableConsoleLogs && !this.enableMainLogFile && !this.enableErrorLogFile) {
@@ -162,20 +194,30 @@ export class Logger {
     }
 
     if (this.enableMainLogFile) {
-      const mainFileTransport = new transports.File({
-        filename: join(this.logFilesDirectory, this.mainLogFileName),
+      const mainFileTransport = new transports.DailyRotateFile({
+        filename: join(this.logFilesDirectory, `${this.mainLogFileName}-%DATE%.log`),
         format: format.combine(timestampFormat, format.json()),
-        level: LogLevel.VERBOSE
+        zippedArchive: this.zippedArchive,
+        datePattern: this.fileDateFormat,
+        maxFiles: this.maxFiles,
+        maxSize: this.maxSize,
+        level: LogLevel.VERBOSE,
+        utc: true
       });
 
       loggerTransports.push(mainFileTransport);
     }
 
     if (this.enableErrorLogFile) {
-      const errorFileTransport = new transports.File({
-        filename: join(this.logFilesDirectory, this.errorLogFileName),
+      const errorFileTransport = new transports.DailyRotateFile({
+        filename: join(this.logFilesDirectory, `${this.errorLogFileName}-%DATE%.log`),
         format: format.combine(timestampFormat, format.json()),
-        level: LogLevel.WARN
+        zippedArchive: this.zippedArchive,
+        datePattern: this.fileDateFormat,
+        maxFiles: this.maxFiles,
+        maxSize: this.maxSize,
+        level: LogLevel.WARN,
+        utc: true
       });
 
       loggerTransports.push(errorFileTransport);
@@ -227,6 +269,10 @@ export interface LoggerOptions {
   enableConsoleLogs: boolean;
   enableMainLogFile: boolean;
   enableErrorLogFile: boolean;
+  fileDateFormat: string;
+  zippedArchive: boolean;
+  maxSize: string;
+  maxFiles: string | number;
   source: string;
   colors: LoggerColors;
 }
