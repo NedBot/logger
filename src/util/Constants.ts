@@ -1,4 +1,4 @@
-import { LoggerOptions } from "../lib/Logger";
+import type { LoggerOptions } from "../index";
 import { join } from "path";
 
 export enum LogLevelSeverity {

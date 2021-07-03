@@ -1,6 +1,6 @@
+import { LogLevels, LogLevel, LoggerColor, Defaults } from "../index";
 import Winston, { format, transport, transports } from "winston";
 import "winston-daily-rotate-file";
-import { LogLevels, LogLevel, LoggerColor, Defaults } from "../util/Constants";
 import { inspect } from "util";
 import { join } from "path";
 
