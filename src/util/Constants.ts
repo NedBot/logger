@@ -74,14 +74,20 @@ type DefaultOptions = Pick<
   | "mainLogFileName"
   | "errorLogFileName"
   | "timestampFormat"
+  | "fileDateFormat"
+  | "maxSize"
+  | "maxFiles"
   | "colors"
 >;
 
 export const Defaults: DefaultOptions = {
   logFilesDirectory: join(process.cwd(), "logs"),
-  mainLogFileName: "info.log",
-  errorLogFileName: "error.log",
+  mainLogFileName: "info",
+  errorLogFileName: "error",
   timestampFormat: "DD/MM/YYYY @ HH:mm:ss",
+  fileDateFormat: "DD-MM-HH-YYYY",
+  maxSize: "2m",
+  maxFiles: "14d",
   colors: {
     timestamp: "bold grey",
     source: "bold magenta",
