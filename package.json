@@ -1,20 +1,23 @@
 {
   "name": "@nedbot/logger",
   "version": "1.0.1",
-  "description": "NedBot project logs initialisation.",
+  "description": "NedBot logger is a configuration wrapper for the Winston logger.",
   "main": "dist/index.js",
   "repository": "https://github.com/NedBot/logger",
   "author": "NedBot <contact@nedbot.org>",
   "license": "Apache-2.0",
   "private": false,
-  "scripts": {
-    "build": "rm ./dist && tsc"
-  },
   "files": [
-    "dist"
+    "./dist/lib",
+    "./dist/types",
+    "./dist/index.js"
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "scripts": {
+    "build": "tsc -b .",
+    "format": "npx prettier --write ."
   },
   "dependencies": {
     "winston": "^3.3.3"
