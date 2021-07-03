@@ -1,6 +1,6 @@
 {
   "name": "@nedbot/logger",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "NedBot logger is a configuration wrapper for the Winston logger.",
   "main": "dist/index.js",
   "repository": "https://github.com/NedBot/logger",
